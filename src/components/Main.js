@@ -40,11 +40,12 @@ const Main = (props) => {
               setMsg(`Your URL has been Expired at ${expiryDate}`);
               refNot.current.click();
               return;
-            }
-            if (data.urlData.pass) {
+            } else if (data.urlData.pass) {
               setUrl(data.urlData.longUrl);
               setPassword(data.urlData.passval);
               ref.current.click();
+            } else {
+              window.location.href = data.longUrl;
             }
           } else {
             window.location.href = data.longUrl;
