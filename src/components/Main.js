@@ -34,16 +34,18 @@ const Main = (props) => {
       } else {
         const data = await response.json();
         if (data.success) {
-          const expiryDate = new Date(data.urlData.expiryDate);
-          if (expiryDate < currentDate) {
-            setMsg(`Your URL has been Expired at ${expiryDate}`);
-            refNot.current.click();
-            return;
-          }
-          if (endpoint === "url" && data.urlData.pass) {
-            setUrl(data.urlData.longUrl);
-            setPassword(data.urlData.passval);
-            ref.current.click();
+          if (endpoint === "url") {
+            const expiryDate = new Date(data.urlData.expiryDate);
+            if (expiryDate < currentDate) {
+              setMsg(`Your URL has been Expired at ${expiryDate}`);
+              refNot.current.click();
+              return;
+            }
+            if (data.urlData.pass) {
+              setUrl(data.urlData.longUrl);
+              setPassword(data.urlData.passval);
+              ref.current.click();
+            }
           } else {
             window.location.href = data.longUrl;
           }
@@ -69,10 +71,10 @@ const Main = (props) => {
       case "qr":
         fetchLongUrl("qr", alias);
         break;
-      case "Barcode":
+      case "barcode":
         fetchLongUrl("barcode", alias);
         break;
-      case "Curltag":
+      case "curltag":
         fetchLongUrl("curltag", alias);
         break;
       default:
