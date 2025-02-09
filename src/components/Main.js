@@ -36,6 +36,7 @@ const Main = (props) => {
         if (data.success) {
           if (endpoint === "url") {
             const expiryDate = new Date(data.urlData.expiryDate);
+            console.log(expiryDate, currentDate, expiryDate < currentDate);
             if (expiryDate < currentDate) {
               setMsg(`Your URL has been Expired at ${expiryDate}`);
               refNot.current.click();
@@ -45,7 +46,8 @@ const Main = (props) => {
               setPassword(data.urlData.passval);
               ref.current.click();
             } else {
-              window.location.href = data.longUrl;
+              // window.location.href = data.longUrl;
+              console.log("redirecting to");
             }
           } else {
             window.location.href = data.longUrl;
