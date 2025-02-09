@@ -18,9 +18,9 @@ const Main = (props) => {
     if (alias.startsWith("qr")) {
       return "qr";
     } else if (alias.startsWith("bc")) {
-      return "Barcode";
+      return "barcode";
     } else if (alias.startsWith("st")) {
-      return "Curltag";
+      return "curltag";
     } else {
       return "url";
     }
