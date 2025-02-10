@@ -52,12 +52,9 @@ const Main = (props) => {
               setPassword(data.urlData.passval);
               ref.current.click();
             } else {
-<<<<<<< HEAD
-             window.location.href = data.longUrl;
-=======
+              window.location.href = data.longUrl;
               // window.location.href = data.longUrl;
               console.log("redirecting to", data.longUrl);
->>>>>>> 65bffdcf0819ae092ec4b357243ffc9c0d652c94
             }
           } else {
             window.location.href = data.longUrl;
