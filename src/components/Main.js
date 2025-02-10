@@ -33,6 +33,32 @@ const Main = (props) => {
     return utcDate;
   };
 
+  const formatExpiry = (date) => {
+    const dates = new Date(date);
+    const manual = dates.toLocaleString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "UTC",
+    });
+    return manual;
+  };
+  const formatCurrent = (date) => {
+    const dates = new Date(date);
+    const manual = dates.toLocaleString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+    return manual;
+  };
+
   const fetchLongUrl = async (endpoint, alias) => {
     try {
       const response = await fetch(`${host}/${endpoint}/${alias}`);
@@ -45,16 +71,25 @@ const Main = (props) => {
             // const expiryDate = new Date(data.urlData.expiryDate);
             let expiryDate = convertToUTC(data.urlData.expiryDate);
             console.log(
-              "before ex:",
-              expiryDate,
-              "cr:",
-              currentDate,
-              expiryDate < currentDate
+              "before ex formatted:",
+              formatExpiry(expiryDate),
+              "cr formatted:",
+              formatCurrent(currentDate),
+              formatExpiry(expiryDate) <= formatCurrent(currentDate)
             );
-            console.log("Expiry Date (UTC):", expiryDate.toISOString());
-            console.log("Current Date (UTC):", currentDate.toISOString());
-            if (expiryDate.toISOString() <= currentDate) {
-              setMsg(`Your URL has been Expired at ${expiryDate}`);
+            console.log(
+              expiryDate,
+              currentDate,
+              "Expiry Date (UTC):",
+              expiryDate.toISOString(),
+              "formatted:",
+              formatExpiry(expiryDate)
+            );
+            if (formatExpiry(expiryDate) <= formatCurrent(currentDate)) {
+              console.log("expired");
+              setMsg(
+                `Your URL has been Expired at ${formatExpiry(expiryDate)}`
+              );
               refNot.current.click();
               return;
             } else if (data.urlData.pass) {
