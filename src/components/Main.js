@@ -26,6 +26,13 @@ const Main = (props) => {
     }
   };
 
+  const convertToUTC = (mysqlDate) => {
+    if (!mysqlDate) return null;
+    let formattedDate = mysqlDate.replace(" ", "T");
+    let utcDate = new Date(formattedDate);
+    return utcDate;
+  };
+
   const fetchLongUrl = async (endpoint, alias) => {
     try {
       const response = await fetch(`${host}/${endpoint}/${alias}`);
@@ -35,15 +42,18 @@ const Main = (props) => {
         const data = await response.json();
         if (data.success) {
           if (endpoint === "url") {
-            const expiryDate = new Date(data.urlData.expiryDate + "Z");
+            // const expiryDate = new Date(data.urlData.expiryDate);
+            let expiryDate = convertToUTC(data.urlData.expiryDate);
             console.log(
-              "ex:",
+              "before ex:",
               expiryDate,
               "cr:",
               currentDate,
               expiryDate < currentDate
             );
-            if (expiryDate < currentDate) {
+            console.log("Expiry Date (UTC):", expiryDate.toISOString());
+            console.log("Current Date (UTC):", currentDate.toISOString());
+            if (expiryDate.toISOString() < currentDate) {
               setMsg(`Your URL has been Expired at ${expiryDate}`);
               refNot.current.click();
               return;
@@ -52,7 +62,6 @@ const Main = (props) => {
               setPassword(data.urlData.passval);
               ref.current.click();
             } else {
-              window.location.href = data.longUrl;
               // window.location.href = data.longUrl;
               console.log("redirecting to", data.longUrl);
             }
@@ -60,8 +69,6 @@ const Main = (props) => {
             window.location.href = data.longUrl;
           }
         } else {
-          setMsg(data.msg);
-          refNot.current.click();
           setNotFound(true);
           document.title = "curlmin | Not Found";
         }
