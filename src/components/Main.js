@@ -45,7 +45,7 @@ const Main = (props) => {
               setPassword(data.urlData.passval);
               ref.current.click();
             } else {
-              window.location.href = data.longUrl;
+             window.location.href = data.longUrl;
             }
           } else {
             window.location.href = data.longUrl;
