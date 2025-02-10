@@ -35,7 +35,7 @@ const Main = (props) => {
         const data = await response.json();
         if (data.success) {
           if (endpoint === "url") {
-            const expiryDate = new Date(data.urlData.expiryDate);
+            const expiryDate = new Date(data.urlData.expiryDate + "Z");
             console.log(
               "ex:",
               expiryDate,
