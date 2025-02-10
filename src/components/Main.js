@@ -36,6 +36,13 @@ const Main = (props) => {
         if (data.success) {
           if (endpoint === "url") {
             const expiryDate = new Date(data.urlData.expiryDate);
+            console.log(
+              "ex:",
+              expiryDate,
+              "cr:",
+              currentDate,
+              expiryDate < currentDate
+            );
             if (expiryDate < currentDate) {
               setMsg(`Your URL has been Expired at ${expiryDate}`);
               refNot.current.click();
@@ -45,13 +52,19 @@ const Main = (props) => {
               setPassword(data.urlData.passval);
               ref.current.click();
             } else {
+<<<<<<< HEAD
              window.location.href = data.longUrl;
+=======
+              // window.location.href = data.longUrl;
+              console.log("redirecting to", data.longUrl);
+>>>>>>> 65bffdcf0819ae092ec4b357243ffc9c0d652c94
             }
           } else {
             window.location.href = data.longUrl;
           }
         } else {
-          console.log(data.msg);
+          setMsg(data.msg);
+          refNot.current.click();
           setNotFound(true);
           document.title = "curlmin | Not Found";
         }

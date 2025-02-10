@@ -6,7 +6,7 @@ const NotifyModal = (props) => {
 
   const handleClose = (e) => {
     e.preventDefault();
-    window.location.href = "https://curlmin.com";
+    // window.location.href = "https://curlmin.com";
   };
 
   return (
