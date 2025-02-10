@@ -25,7 +25,5 @@ jobs:
         port: 22
         script: |
           cd curlmin/curlm.in
-          git add .
-          git commit -m "Committing local changes before deployment"
           git pull origin main
           git status
