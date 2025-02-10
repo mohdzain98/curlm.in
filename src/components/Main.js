@@ -36,7 +36,13 @@ const Main = (props) => {
         if (data.success) {
           if (endpoint === "url") {
             const expiryDate = new Date(data.urlData.expiryDate);
-            console.log(expiryDate, currentDate, expiryDate < currentDate);
+            console.log(
+              "ex:",
+              expiryDate,
+              "cr:",
+              currentDate,
+              expiryDate < currentDate
+            );
             if (expiryDate < currentDate) {
               setMsg(`Your URL has been Expired at ${expiryDate}`);
               refNot.current.click();
