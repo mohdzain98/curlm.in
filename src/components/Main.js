@@ -63,30 +63,15 @@ const Main = (props) => {
     try {
       const response = await fetch(`${host}/${endpoint}/${alias}`);
       if (response.status === 500) {
-        console.log("Internel Server Error Occurred");
+        setMsg("Internel Server Error Occurred");
+        refNot.current.click();
       } else {
         const data = await response.json();
         if (data.success) {
           if (endpoint === "url") {
             // const expiryDate = new Date(data.urlData.expiryDate);
             let expiryDate = convertToUTC(data.urlData.expiryDate);
-            console.log(
-              "before ex formatted:",
-              formatExpiry(expiryDate),
-              "cr formatted:",
-              formatCurrent(currentDate),
-              formatExpiry(expiryDate) <= formatCurrent(currentDate)
-            );
-            console.log(
-              expiryDate,
-              currentDate,
-              "Expiry Date (UTC):",
-              expiryDate.toISOString(),
-              "formatted:",
-              formatExpiry(expiryDate)
-            );
             if (formatExpiry(expiryDate) <= formatCurrent(currentDate)) {
-              console.log("expired");
               setMsg(
                 `Your URL has been Expired at ${formatExpiry(expiryDate)}`
               );
@@ -97,8 +82,7 @@ const Main = (props) => {
               setPassword(data.urlData.passval);
               ref.current.click();
             } else {
-              // window.location.href = data.longUrl;
-              console.log("redirecting to", data.longUrl);
+              window.location.href = data.longUrl;
             }
           } else {
             window.location.href = data.longUrl;
@@ -109,14 +93,14 @@ const Main = (props) => {
         }
       }
     } catch (error) {
-      console.error("Error fetching URL:", error);
+      setMsg("Error fetching URL:", error);
+      refNot.current.click();
     }
   };
 
   useEffect(() => {
     document.title = "curlmin | redirect";
     const service = getService(alias);
-    console.log(service);
     switch (service) {
       case "url":
         fetchLongUrl("url", alias);
@@ -131,7 +115,8 @@ const Main = (props) => {
         fetchLongUrl("curltag", alias);
         break;
       default:
-        console.log("Code is Wrong");
+        setNotFound(true);
+        document.title = "curlmin | Not Found";
         break;
     }
     // eslint-disable-next-line
