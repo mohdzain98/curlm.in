@@ -53,7 +53,7 @@ const Main = (props) => {
             );
             console.log("Expiry Date (UTC):", expiryDate.toISOString());
             console.log("Current Date (UTC):", currentDate.toISOString());
-            if (expiryDate.toISOString() < currentDate) {
+            if (expiryDate.toISOString() <= currentDate) {
               setMsg(`Your URL has been Expired at ${expiryDate}`);
               refNot.current.click();
               return;
