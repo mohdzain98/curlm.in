@@ -47,13 +47,14 @@ const Main = (props) => {
               ref.current.click();
             } else {
               // window.location.href = data.longUrl;
-              console.log("redirecting to");
+              console.log("redirecting to", data.longUrl);
             }
           } else {
             window.location.href = data.longUrl;
           }
         } else {
-          console.log(data.msg);
+          setMsg(data.msg);
+          refNot.current.click();
           setNotFound(true);
           document.title = "curlmin | Not Found";
         }
