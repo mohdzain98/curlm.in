@@ -9,7 +9,6 @@ const StaticModal = (props) => {
 
   const HandleSubmit = () => {
     setIsLoading(true);
-    console.log(pass, password);
     if (pass === password) {
       setAlert({ show: true, type: "success", msg: "password matched" });
       refClose.current.click();
@@ -23,6 +22,12 @@ const StaticModal = (props) => {
     }
     setIsLoading(false);
   };
+
+  const handleClose = (e) => {
+    e.preventDefault();
+    window.location.href = "https://curlmin.com";
+  };
+
   return (
     <div
       class="modal fade"
@@ -71,6 +76,7 @@ const StaticModal = (props) => {
               class="btn btn-secondary"
               data-bs-dismiss="modal"
               ref={refClose}
+              onClick={handleClose}
             >
               Close
             </button>

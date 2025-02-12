@@ -46,6 +46,7 @@ const Main = (props) => {
     });
     return manual;
   };
+
   const formatCurrent = (date) => {
     const dates = new Date(date);
     const manual = dates.toLocaleString("en-US", {
@@ -71,7 +72,9 @@ const Main = (props) => {
           if (endpoint === "url") {
             // const expiryDate = new Date(data.urlData.expiryDate);
             let expiryDate = convertToUTC(data.urlData.expiryDate);
-            if (formatExpiry(expiryDate) <= formatCurrent(currentDate)) {
+            if (data.urlData.isPermanent) {
+              window.location.href = data.longUrl;
+            } else if (formatExpiry(expiryDate) <= formatCurrent(currentDate)) {
               setMsg(
                 `Your URL has been Expired at ${formatExpiry(expiryDate)}`
               );
