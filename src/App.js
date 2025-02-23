@@ -17,7 +17,11 @@ function App() {
             path="/:alias"
             element={<Main prop={{ host }} />}
           ></Route>
-          <Route exact path="/:type/:id" element={<Share />}></Route>
+          <Route
+            exact
+            path="/:type/:id"
+            element={<Share prop={{ host }} />}
+          ></Route>
         </Routes>
       </Router>
     </>
