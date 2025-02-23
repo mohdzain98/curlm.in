@@ -16,7 +16,7 @@ const Main = (props) => {
 
   const getService = (alias) => {
     if (alias.startsWith("qr")) {
-      return "qr";
+      return "qrcode";
     } else if (alias.startsWith("bc")) {
       return "barcode";
     } else if (alias.startsWith("st")) {
@@ -108,8 +108,8 @@ const Main = (props) => {
       case "url":
         fetchLongUrl("url", alias);
         break;
-      case "qr":
-        fetchLongUrl("qr", alias);
+      case "qrcode":
+        fetchLongUrl("qrcode", alias);
         break;
       case "barcode":
         fetchLongUrl("barcode", alias);

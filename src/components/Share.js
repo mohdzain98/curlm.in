@@ -41,7 +41,9 @@ const Share = (props) => {
 
   const download = () => {
     const link = document.createElement("a");
-    link.href = `https://curlmin.com/UserAssets/${endpoint}/${imageurl}`;
+    const href = `../../../curlmin/UserAssets/build/${endpoint}/${imageurl}`;
+    link.href = href;
+    console.log(href);
     link.download = imageurl;
     document.body.appendChild(link);
     link.click();
