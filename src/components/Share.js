@@ -6,6 +6,8 @@ const Share = (props) => {
   const { type, id } = useParams();
   const [endpoint, setEndpoint] = useState("");
   const [imageurl, setImageurl] = useState("");
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (type === "qr") {
@@ -18,7 +20,10 @@ const Share = (props) => {
     if (!imageurl) {
       async function getFileName() {
         const file = await fetchFile();
-        setImageurl(file);
+        if (file) {
+          setImageurl(file);
+        }
+        setLoading(false);
       }
       getFileName();
     }
@@ -32,21 +37,14 @@ const Share = (props) => {
       if (response.ok) {
         return data.filename;
       } else {
-        return data.error;
+        setMsg(data.error);
       }
     } catch (error) {
-      console.log("Server Error Occurred");
+      setMsg("There is some Error Accessing Server");
     }
   };
 
   const download = async () => {
-    // const link = document.createElement("a");
-    // const href = `https://curlmin.com/UserAssets/${endpoint}/${imageurl}`;
-    // link.href = href;
-    // link.download = imageurl;
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
     try {
       const response = await fetch(
         `https://curlmin.com/UserAssets/${endpoint}/${imageurl}`
@@ -59,23 +57,44 @@ const Share = (props) => {
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error("Download failed", error);
+      setMsg("Download failed");
     }
   };
 
+  if (loading) {
+    return (
+      <div className="vh-100 d-flex justify-content-center align-items-center">
+        <span className="spinner-border"></span>
+      </div>
+    );
+  }
+
   return (
-    <div className="d-flex justify-content-center align-items-center flex-column gap-3 vh-100">
-      <div className="shadow-sm border">
-        <img
-          src={`https://curlmin.com/UserAssets/${endpoint}/${imageurl}`}
-          alt={endpoint}
-        />
-      </div>
-      <div>
-        <button className="btn btn-primary shadow-sm" onClick={download}>
-          <i className="fa-solid fa-download me-2"></i>Download
-        </button>
-      </div>
+    <div className="container p-3">
+      {imageurl ? (
+        <div className="d-flex justify-content-center align-items-center flex-column gap-3 vh-100">
+          <div className="shadow-sm border">
+            <img
+              src={`https://curlmin.com/UserAssets/${endpoint}/${imageurl}`}
+              alt={endpoint}
+            />
+          </div>
+          <div>
+            <button className="btn btn-primary shadow-sm" onClick={download}>
+              <i className="fa-solid fa-download me-2"></i>Download
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="d-flex justify-content-center align-items-center vh-100 flex-column">
+          <img
+            src={require("../assets/notfound.webp")}
+            alt="not found"
+            height={350}
+          />
+          <h1 className="fw-bold text-secondary">{msg}</h1>
+        </div>
+      )}
     </div>
   );
 };
