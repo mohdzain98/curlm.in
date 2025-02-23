@@ -39,15 +39,28 @@ const Share = (props) => {
     }
   };
 
-  const download = () => {
-    const link = document.createElement("a");
-    const href = `https://curlmin.com/UserAssets/${endpoint}/${imageurl}`;
-    link.href = href;
-    link.download = imageurl;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    console.log(href);
+  const download = async () => {
+    // const link = document.createElement("a");
+    // const href = `https://curlmin.com/UserAssets/${endpoint}/${imageurl}`;
+    // link.href = href;
+    // link.download = imageurl;
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+    try {
+      const response = await fetch(
+        `https://curlmin.com/UserAssets/${endpoint}/${imageurl}`
+      );
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute("download", imageurl);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Download failed", error);
+    }
   };
 
   return (
