@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 import StaticModal from "./StaticModal";
 import NotifyModal from "./NotifyModal";
+import Navbar from "./Navbar";
 
 const Main = (props) => {
   const { host } = props.prop;
@@ -126,38 +127,15 @@ const Main = (props) => {
   }, [alias]);
 
   return (
-    <>
+    <div className="vh-100">
+      <Navbar />
       <div className="container px-4 mt-1 mb-2">
-        <div className="d-flex justify-content-center align-item-center">
-          <span className="sinner-border"></span>
-        </div>
+        {/* <div className="d-flex justify-content-center align-item-center">
+          <span className="spinner-border"></span>
+        </div> */}
         {notFound && (
           <div>
-            <nav class="navbar navbar-expand-lg bg-default">
-              <div class="container-fluid">
-                <a
-                  className="navbar-brand text-primary fw-bold"
-                  href="https://curlmin.com"
-                >
-                  curlmin
-                </a>
-                <div className="float-end d-flex flex-row flex-wrap">
-                  <a
-                    href="https://curlmin.com/login"
-                    className="btn btn-default text-danger"
-                  >
-                    Login
-                  </a>
-                  <a
-                    href="https://curlmin.com/signup"
-                    className="btn btn-default text-success"
-                  >
-                    Signup
-                  </a>
-                </div>
-              </div>
-            </nav>
-            <div className="d-flex justify-content-center align-items-center flex-column">
+            <div className="d-flex justify-content-center align-items-center flex-column mt-5">
               <img
                 src={require("../assets/notfound.webp")}
                 alt="not found"
@@ -169,6 +147,14 @@ const Main = (props) => {
                 Either you have clicked on the wrong link, or your link has
                 expired
               </p>
+              <div className="d-flex flex-row gap-2 mt-3">
+                <Link to="https://curlmin.com/login">
+                  <button className="btn btn-outline-secondary ">Login</button>
+                </Link>
+                <Link to="https://curlmin.com/signup">
+                  <button className="btn btn-outline-secondary">Signup</button>
+                </Link>
+              </div>
             </div>
           </div>
         )}
@@ -193,7 +179,7 @@ const Main = (props) => {
         </button>
         <NotifyModal prop={{ msg }} />
       </div>
-    </>
+    </div>
   );
 };
 
