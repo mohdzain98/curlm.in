@@ -11,6 +11,7 @@ const Main = (props) => {
   const [url, setUrl] = useState("");
   const [notFound, setNotFound] = useState(false);
   const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(true);
   const currentDate = new Date();
   const ref = useRef(null);
   const refNot = useRef(null);
@@ -99,6 +100,8 @@ const Main = (props) => {
     } catch (error) {
       setMsg("Error fetching URL:", error);
       refNot.current.click();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -125,6 +128,14 @@ const Main = (props) => {
     }
     // eslint-disable-next-line
   }, [alias]);
+
+  if (loading) {
+    return (
+      <div>
+        <span>...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="vh-100">
