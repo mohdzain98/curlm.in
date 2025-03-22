@@ -76,7 +76,7 @@ const Share = (props) => {
   }
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column">
       <Navbar />
       {/* Main Content */}
       <main className="flex-grow-1">
