@@ -150,11 +150,17 @@ const Main = (props) => {
               <img
                 src={require("../assets/notfound.webp")}
                 alt="not found"
-                height={350}
+                style={{ maxHeight: "300px" }}
+                className="img-fluid"
               />
               <h1 className="fw-bold text-secondary">Not Found</h1>
-              <h4>What you are Looking , does not found on curlmin</h4>
-              <p className="lead text-muted">
+              <h4 className="text-center">
+                What you are Looking , does not found on curlmin
+              </h4>
+              <p
+                className="lead text-muted text-center"
+                style={{ fontSize: "19px" }}
+              >
                 Either you have clicked on the wrong link, or your link has
                 expired
               </p>
