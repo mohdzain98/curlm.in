@@ -1,0 +1,14 @@
+/* Add to your main CSS file or inside a <style> tag */
+.blur-image {
+    filter: blur(10px);
+    transition: filter 0.3s ease;
+    pointer-events: none;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
