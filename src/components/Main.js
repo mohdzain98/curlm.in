@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router";
 import StaticModal from "./StaticModal";
 import NotifyModal from "./NotifyModal";
-import Navbar from "./Navbar";
 
 const Main = (props) => {
   const { host } = props.prop;
@@ -139,7 +138,6 @@ const Main = (props) => {
 
   return (
     <div className="vh-100">
-      <Navbar />
       <div className="container px-4 mt-1 mb-2">
         {/* <div className="d-flex justify-content-center align-item-center">
           <span className="spinner-border"></span>
