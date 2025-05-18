@@ -54,6 +54,14 @@ const Navbar = () => {
                     Curltags
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link
+                    to="https://curlmin.com/image"
+                    className="nav-link text-light"
+                  >
+                    Images
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>
