@@ -71,7 +71,6 @@ const Image = (props) => {
   };
 
   const handleUnlock = () => {
-    console.log("ep:", enteredPassword, "p:", password);
     if (enteredPassword === password) {
       setUnlocked(true);
       setShowPasswordModal(false);
@@ -151,9 +150,9 @@ const Image = (props) => {
       }
       getImage();
     }
-    const handleContextMenu = (e) => e.preventDefault();
-    document.addEventListener("contextmenu", handleContextMenu);
-    return () => document.removeEventListener("contextmenu", handleContextMenu);
+    // const handleContextMenu = (e) => e.preventDefault();
+    // document.addEventListener("contextmenu", handleContextMenu);
+    // return () => document.removeEventListener("contextmenu", handleContextMenu);
     // eslint-disable-next-line
   }, [imageurl]);
 
